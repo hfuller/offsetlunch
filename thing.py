@@ -4,7 +4,7 @@ import psycopg2
 import psycopg2.extras
 
 from event_processor import EventProcessor
-#from web_ui import app
+from web_ui import WebUI
 
 if __name__ == "__main__":
     print("Loading config file.")
@@ -16,6 +16,9 @@ if __name__ == "__main__":
 
     print("Creating event processor.")
     ep = EventProcessor(db)
+
+    print("Starting WebUI")
+    WebUI(ep).go()
     
     print("Kicking event sync")
     ep.poll_sources()
