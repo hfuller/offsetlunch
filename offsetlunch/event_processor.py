@@ -25,7 +25,7 @@ class EventProcessor:
                 e_source_id = source['id']
                 e_name = str(event['DESCRIPTION'])
                 e_starts_at = str(event['DTSTART'].dt)
-                cur.execute(''' INSERT INTO event(uid,source_id,name,starts_at) VALUES(%s,%s,%s,%s) on conflict (uid) do update set (name,starts_at) = (%s,%s); ''', [e_uid, e_source_id, e_name, e_starts_at, e_name, e_starts_at])
+                cur.execute(''' INSERT INTO event(uid,source_id,name,starts_at) VALUES(%s,%s,%s,%s) ON CONFLICT (uid) DO UPDATE SET (name,starts_at) = (%s,%s); ''', [e_uid, e_source_id, e_name, e_starts_at, e_name, e_starts_at])
                 print("INSERT")
         self.db.commit()
         print("COMMIT")
