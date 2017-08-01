@@ -3,7 +3,8 @@ import json
 import psycopg2
 import psycopg2.extras
 
-from offsetlunch import EventProcessor
+from event_processor import EventProcessor
+#from web_ui import app
 
 if __name__ == "__main__":
     print("Loading config file.")
