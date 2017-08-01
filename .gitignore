@@ -2,3 +2,4 @@ config.json
 venv/
 build/
 .*.swp
+*.pyc
