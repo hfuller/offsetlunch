@@ -1,13 +1,25 @@
 from __future__ import print_function
-import psycopg2
-import psycopg2.extras
-from six.moves import urllib
+
+import psycopg2, psycopg2.extras
 import icalendar
+import time
+from six.moves import urllib
+from multiprocessing.dummy import Pool #Threads work and processes don't. WHo knows why? Not me.
 
 
 class EventProcessor:
     def __init__(self, db):
         self.db = db
+
+        print("Setting up periodic tasks")
+        self.pool = Pool(processes=1)
+        self.pool.apply_async(self.run_async, [], callback=print)
+
+    def run_async(self):
+        while True:
+            print("Running async thread stuff")
+            self.poll_sources()
+            time.sleep(300)
     
     def poll_sources(self):
         print("loading ical event sources from db")
@@ -29,3 +41,5 @@ class EventProcessor:
                 print("INSERT")
         self.db.commit()
         print("COMMIT")
+
+        pass

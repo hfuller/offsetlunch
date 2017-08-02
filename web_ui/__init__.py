@@ -1,11 +1,16 @@
 from flask import Flask
-from routes.tools import tools
+from web_ui.routes.tools import tools
+
+from event_processor import EventProcessor
 
 class WebUI:
-    def __init__(self, ep):
+    def __init__(self, db):
         self.app = Flask(__name__)
         self.app.config['DEBUG'] = True
-        self.app.config['ep'] = ep
+
+        self.app.config['db'] = db
+        self.app.config['ep'] = EventProcessor(db)
+
         self.app.register_blueprint(tools)
 
     def go(self):
